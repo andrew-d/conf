@@ -122,7 +122,7 @@ var (
 		{
 			val:  struct{ A bool }{true},
 			file: `A: true`,
-			args: []string{"-A"},
+			args: []string{"--A"},
 			env:  []string{"TEST_A=true"},
 		},
 
@@ -136,7 +136,7 @@ var (
 		{
 			val:  struct{ A int }{42},
 			file: `A: 42`,
-			args: []string{"-A", "42"},
+			args: []string{"--A", "42"},
 			env:  []string{"TEST_A=42"},
 		},
 
@@ -150,118 +150,118 @@ var (
 		{
 			val:  struct{ A string }{"42"}, // convert digit sequence to string
 			file: `A: '42'`,
-			args: []string{"-A", "42"},
+			args: []string{"--A", "42"},
 			env:  []string{"TEST_A=42"},
 		},
 		{
 			val:  struct{ A string }{"0123456789"}, // convert a longer digit sequence to string
 			file: `A: '0123456789'`,
-			args: []string{"-A", "0123456789"},
+			args: []string{"--A", "0123456789"},
 			env:  []string{"TEST_A=0123456789"},
 		},
 
 		{
 			val:  struct{ S string }{"Hello World!"},
 			file: `S: Hello World!`,
-			args: []string{"-S", "Hello World!"},
+			args: []string{"--S", "Hello World!"},
 			env:  []string{"TEST_S=Hello World!"},
 		},
 
 		{
 			val:  struct{ L []int }{[]int{1, 2, 3}},
 			file: `L: [1, 2, 3]`,
-			args: []string{"-L", "[1,2,3]"},
+			args: []string{"--L", "[1,2,3]"},
 			env:  []string{"TEST_L=[1, 2, 3]"},
 		},
 
 		{
 			val:  struct{ L []string }{[]string{"A", "42"}},
 			file: `L: [A, 42]`,
-			args: []string{"-L", "[A, 42]"},
+			args: []string{"--L", "[A, 42]"},
 			env:  []string{"TEST_L=[A, 42]"},
 		},
 
 		{
 			val:  struct{ L []string }{[]string{"A", "B", "C"}},
 			file: `L: [A,B,C]`,
-			args: []string{"-L", "[A,B,C]"},
+			args: []string{"--L", "[A,B,C]"},
 			env:  []string{"TEST_L=[A,B,C]"},
 		},
 
 		{
 			val:  struct{ L []string }{[]string{"A", "B", "C"}},
 			file: `L: [A,B,C]`,
-			args: []string{"-L", `["A","B","C"]`},
+			args: []string{"--L", `["A","B","C"]`},
 			env:  []string{`TEST_L=["A","B","C"]`},
 		},
 
 		{
 			val:  struct{ P *point }{&point{1, 2}},
 			file: `P: { 'x': 1, 'y': 2 }`,
-			args: []string{"-P.x", "1", "-P.y", "2"},
+			args: []string{"--P.x", "1", "--P.y", "2"},
 			env:  []string{"TEST_P_X=1", "TEST_P_Y=2"},
 		},
 
 		{
 			val:  struct{ P *point }{&point{1, 2}},
 			file: `P: { 'x': 1, 'y': 2 }`,
-			args: []string{"-P", "{ 'x': 1, 'y': 2 }"},
+			args: []string{"--P", "{ 'x': 1, 'y': 2 }"},
 			env:  []string{"TEST_P={ 'x': 1, 'y': 2 }"},
 		},
 
 		{
 			val:  struct{ D time.Duration }{10 * time.Second},
 			file: `D: 10s`,
-			args: []string{"-D=10s"},
+			args: []string{"--D=10s"},
 			env:  []string{"TEST_D=10s"},
 		},
 
 		{
 			val:  struct{ T time.Time }{testTime},
 			file: `T: 2016-12-06T01:01:42.123456789Z`,
-			args: []string{"-T=2016-12-06T01:01:42.123456789Z"},
+			args: []string{"--T=2016-12-06T01:01:42.123456789Z"},
 			env:  []string{"TEST_T=2016-12-06T01:01:42.123456789Z"},
 		},
 
 		{
 			val:  struct{ T *time.Time }{&testTime},
 			file: `T: 2016-12-06T01:01:42.123456789Z`,
-			args: []string{"-T=2016-12-06T01:01:42.123456789Z"},
+			args: []string{"--T=2016-12-06T01:01:42.123456789Z"},
 			env:  []string{"TEST_T=2016-12-06T01:01:42.123456789Z"},
 		},
 
 		{
 			val:  struct{ M map[string]int }{map[string]int{"answer": 42}},
 			file: `M: { answer: 42 }`,
-			args: []string{"-M={ answer: 42 }"},
+			args: []string{"--M={ answer: 42 }"},
 			env:  []string{"TEST_M={ answer: 42 }"},
 		},
 
 		{
 			val:  struct{ A net.TCPAddr }{net.TCPAddr{IP: net.ParseIP("::1"), Port: 80, Zone: "11"}},
 			file: `A: '[::1%11]:80'`,
-			args: []string{"-A", "[::1%11]:80"},
+			args: []string{"--A", "[::1%11]:80"},
 			env:  []string{"TEST_A=[::1%11]:80"},
 		},
 
 		{
 			val:  struct{ A net.UDPAddr }{net.UDPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 53, Zone: ""}},
 			file: `A: 127.0.0.1:53`,
-			args: []string{"-A", "127.0.0.1:53"},
+			args: []string{"--A", "127.0.0.1:53"},
 			env:  []string{"TEST_A=127.0.0.1:53"},
 		},
 
 		{
 			val:  struct{ U url.URL }{parseURL("http://localhost:8080/hello/world?answer=42#OK")},
 			file: `U: http://localhost:8080/hello/world?answer=42#OK`,
-			args: []string{"-U", "http://localhost:8080/hello/world?answer=42#OK"},
+			args: []string{"--U", "http://localhost:8080/hello/world?answer=42#OK"},
 			env:  []string{"TEST_U=http://localhost:8080/hello/world?answer=42#OK"},
 		},
 
 		{
 			val:  struct{ E mail.Address }{parseEmail("Bob <bob@domain.com>")},
 			file: `E: Bob <bob@domain.com>`,
-			args: []string{"-E", "Bob <bob@domain.com>"},
+			args: []string{"--E", "Bob <bob@domain.com>"},
 			env:  []string{"TEST_E=Bob <bob@domain.com>"},
 		},
 	}
@@ -310,7 +310,7 @@ points:
 		env  []string
 	}{
 		{
-			args: []string{"test", "-points", `[{'x':0,'y':0},{'x':1,'y':2},{'x':21,'y':42}]`, "A", "B", "C"},
+			args: []string{"test", "--points", `[{'x':0,'y':0},{'x':1,'y':2},{'x':21,'y':42}]`, "A", "B", "C"},
 			env:  []string{},
 		},
 		{
@@ -318,11 +318,11 @@ points:
 			env:  []string{"TEST_POINTS=[{'x':0,'y':0},{'x':1,'y':2},{'x':21,'y':42}]"},
 		},
 		{
-			args: []string{"test", "-config-file", configFile, "A", "B", "C"},
+			args: []string{"test", "--config-file", configFile, "A", "B", "C"},
 			env:  []string{"X=21", "Y=42"},
 		},
 		{
-			args: []string{"test", "-config-file", configFile, "-points", `[{'x':0,'y':0},{'x':1,'y':2},{'x':21,'y':42}]`, "A", "B", "C"},
+			args: []string{"test", "--config-file", configFile, "--points", `[{'x':0,'y':0},{'x':1,'y':2},{'x':21,'y':42}]`, "A", "B", "C"},
 			env:  []string{"TEST_POINTS=[{'x':0,'y':0},{'x':1,'y':2},{'x':21,'y':42}]", "X=3", "Y=4"},
 		},
 	}
@@ -378,7 +378,7 @@ hello: {{ .NAME | json }}
 		Hello string `conf:"hello"`
 	}
 
-	_, _, err := defaultLoader([]string{"test", "-config-file", configFile}, []string{
+	_, _, err := defaultLoader([]string{"test", "--config-file", configFile}, []string{
 		"NAME=first: Luke, second: Leia",
 	}).Load(&cfg)
 
@@ -550,12 +550,12 @@ func TestEmbeddedStruct(t *testing.T) {
 	ld := Loader{
 		Name: "test",
 		Args: []string{
-			"-ChildField1", "embedded-child-1",
-			"-ChildField2", "embedded-child-2",
-			"-BranchField", "embedded-branch",
-			"-OtherBranch.ChildField1", "no-embedded-child-1",
-			"-OtherBranch.ChildField2", "no-embedded-child-2",
-			"-OtherBranch.BranchField", "no-embedded-branch",
+			"--ChildField1", "embedded-child-1",
+			"--ChildField2", "embedded-child-2",
+			"--BranchField", "embedded-branch",
+			"--OtherBranch.ChildField1", "no-embedded-child-1",
+			"--OtherBranch.ChildField2", "no-embedded-child-2",
+			"--OtherBranch.BranchField", "no-embedded-branch",
 		},
 	}
 

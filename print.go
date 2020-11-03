@@ -2,7 +2,6 @@ package conf
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"io"
 	"os"
@@ -10,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/segmentio/objconv"
+	flag "github.com/spf13/pflag"
 )
 
 // PrintError outputs the error message for err to stderr.
@@ -131,7 +131,7 @@ func (ld Loader) fprintHelp(w io.Writer, cfg interface{}, col colors) {
 			t = "value"
 		}
 
-		fmt.Fprintf(w, "  %s", col.keys("-"+f.Name))
+		fmt.Fprintf(w, "  %s", col.keys("--"+f.Name))
 
 		switch {
 		case !boolean:

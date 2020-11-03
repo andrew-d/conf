@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -13,8 +12,8 @@ import (
 	"sort"
 	"strings"
 
+	flag "github.com/spf13/pflag"
 	"gopkg.in/go-playground/mold.v2/modifiers"
-
 	validator "gopkg.in/validator.v2"
 
 	// Load all default adapters of the objconv package.

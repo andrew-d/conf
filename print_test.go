@@ -96,19 +96,19 @@ func TestPrintHelp(t *testing.T) {
 		"  version  Print the version\n" +
 		"\n" +
 		"Options:\n" +
-		"  -A int\n" +
+		"  --A int\n" +
 		"    \t(default 1)\n" +
 		"\n" +
-		"  -B int\n" +
+		"  --B int\n" +
 		"\n" +
-		"  -C int\n" +
+		"  --C int\n" +
 		"\n" +
-		"  -D\tSet D\n" +
+		"  --D\tSet D\n" +
 		"\n" +
-		"  -T duration\n" +
+		"  --T duration\n" +
 		"    \t(default 1s)\n" +
 		"\n" +
-		"  -enable\n" +
+		"  --enable\n" +
 		"    \tEnable E\n" +
 		"\n"
 

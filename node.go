@@ -3,7 +3,6 @@ package conf
 import (
 	"bytes"
 	"encoding"
-	"flag"
 	"fmt"
 	"reflect"
 	"sort"
@@ -12,6 +11,7 @@ import (
 	"github.com/segmentio/objconv"
 	"github.com/segmentio/objconv/json"
 	"github.com/segmentio/objconv/yaml"
+	flag "github.com/spf13/pflag"
 )
 
 // NodeKind is an enumeration which describes the different types of nodes that
@@ -290,6 +290,10 @@ func (s Scalar) Kind() NodeKind {
 	return ScalarNode
 }
 
+func (s Scalar) Type() string {
+	return "scalar"
+}
+
 func (s Scalar) Value() interface{} {
 	if !s.value.IsValid() {
 		return nil
@@ -346,6 +350,10 @@ type Array struct {
 
 func (a Array) Kind() NodeKind {
 	return ArrayNode
+}
+
+func (a Array) Type() string {
+	return "array"
 }
 
 func (a Array) Value() interface{} {
@@ -445,6 +453,10 @@ type MapItem struct {
 
 func (m Map) Kind() NodeKind {
 	return MapNode
+}
+
+func (m Map) Type() string {
+	return "map"
 }
 
 func (m Map) Value() interface{} {

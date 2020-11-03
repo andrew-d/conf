@@ -2,11 +2,11 @@ package conf
 
 import (
 	"bytes"
-	"flag"
 	"strings"
 	"text/template"
 
 	"github.com/segmentio/objconv/json"
+	flag "github.com/spf13/pflag"
 )
 
 // Source is the interface that allow new types to be plugged into a loader to
@@ -156,4 +156,8 @@ func (f *fileSource) Set(s string) error {
 
 func (f *fileSource) String() string {
 	return f.path
+}
+
+func (f *fileSource) Type() string {
+	return "fileSource"
 }
