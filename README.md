@@ -1,4 +1,5 @@
-# conf [![GoDoc](https://godoc.org/github.com/andrew-d/conf?status.svg)](https://godoc.org/github.com/andrew-d/conf)
+# conf [![GoDoc](https://godoc.org/github.com/andrew-d/conf?status.svg)](https://godoc.org/github.com/andrew-d/conf) ![Test Status](https://github.com/andrew-d/conf/workflows/CI/badge.svg)
+
 Go package for loading program configuration from multiple sources.
 
 Motivations

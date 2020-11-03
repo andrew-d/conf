@@ -1,4 +1,4 @@
-name: Build and test Go
+name: CI
 on: [push, pull_request]
 jobs:
   build:
@@ -23,7 +23,12 @@ jobs:
           GOPROXY: "https://proxy.golang.org"
         run: go build -v ./...
 
+      - name: vet
+        env:
+          GOPROXY: "https://proxy.golang.org"
+        run: go vet ./...
+
       - name: Test
         env:
           GOPROXY: "https://proxy.golang.org"
-        run: go test -v ./...
+        run: go test -v -race ./...
