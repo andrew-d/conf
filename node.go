@@ -211,10 +211,44 @@ func populateNodeStruct(originalT reflect.Type, path string, v reflect.Value, t 
 			continue
 		case "_":
 			path = path + "." + ft.Name
-			if ft.Type.Kind() != reflect.Struct || !ft.Anonymous {
-				panic("found \"_\" on invalid type at path " + path + " in configuration: " + originalT.Name())
+			valid := true
+			if !ft.Anonymous {
+				println("ft.Anonymous:", ft.Anonymous)
+				valid = false
 			}
-			populateNodeStruct(originalT, path, fv, ft.Type, m)
+
+			var (
+				nextv reflect.Value
+				nextt reflect.Type
+			)
+			switch ft.Type.Kind() {
+			// Embedded structs work as-is
+			case reflect.Struct:
+				nextv = fv
+				nextt = ft.Type
+
+			// We can use embedded pointers-to-structs
+			case reflect.Ptr:
+				// Set the embedded pointer if it's nil
+				if fv.IsNil() {
+					fv.Set(reflect.New(ft.Type.Elem()))
+				}
+
+				nextv = fv.Elem()
+				nextt = nextv.Type()
+
+				if nextt.Kind() != reflect.Struct {
+					valid = false
+				}
+
+			default:
+				valid = false
+			}
+
+			if !valid {
+				panic("found \"_\" on invalid type " + ft.Type.String() + " at path " + path + " in configuration: " + originalT.Name())
+			}
+			populateNodeStruct(originalT, path, nextv, nextt, m)
 			continue
 		case "":
 			name = ft.Name
