@@ -1,4 +1,4 @@
-module github.com/segmentio/conf
+module github.com/andrew-d/conf
 
 go 1.14
 

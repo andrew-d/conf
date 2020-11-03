@@ -1,4 +1,4 @@
-# conf [![CircleCI](https://circleci.com/gh/segmentio/conf.svg?style=shield)](https://circleci.com/gh/segmentio/conf) [![Go Report Card](https://goreportcard.com/badge/github.com/segmentio/conf)](https://goreportcard.com/report/github.com/segmentio/conf) [![GoDoc](https://godoc.org/github.com/segmentio/conf?status.svg)](https://godoc.org/github.com/segmentio/conf)
+# conf [![GoDoc](https://godoc.org/github.com/andrew-d/conf?status.svg)](https://godoc.org/github.com/andrew-d/conf)
 Go package for loading program configuration from multiple sources.
 
 Motivations
@@ -47,7 +47,7 @@ configuration based on the struct it receives, as well as generating the program
 usage and help messages if the `-h` or `-help` options are passed (or an error
 is detected).
 
-The `conf.Load` function adds support for a `-config-file` option on the program
+The `conf.Load` function adds support for a `--config-file` option on the program
 arguments which accepts the path to a file that the configuration may be loaded
 from as well.
 
@@ -58,7 +58,7 @@ package main
 import (
     "fmt"
 
-    "github.com/segmentio/conf"
+    "github.com/andrew-d/conf"
 )
 
 func main() {
@@ -152,7 +152,7 @@ package main
 import (
     "fmt"
 
-    "github.com/segmentio/conf"
+    "github.com/andrew-d/conf"
 )
 
 func main() {

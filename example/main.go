@@ -1,5 +1,5 @@
 // This example program can be used to test the features provided by the
-// github.com/segmentio/conf package.
+// github.com/andrew-d/conf package.
 //
 // Passing configuration via the program arguments:
 //
@@ -23,7 +23,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/segmentio/conf"
+	"github.com/andrew-d/conf"
 )
 
 func main() {
