@@ -86,6 +86,7 @@ func TestPrintHelp(t *testing.T) {
 		D bool `help:"Set D"`
 		E bool `conf:"enable" help:"Enable E"`
 		T time.Duration
+		S string `short:"q"`
 	}{A: 1, T: time.Second})
 
 	const txt = "Usage:\n" +
@@ -104,6 +105,8 @@ func TestPrintHelp(t *testing.T) {
 		"  --C int\n" +
 		"\n" +
 		"  --D\tSet D\n" +
+		"\n" +
+		"  -q, --S string\n" +
 		"\n" +
 		"  --T duration\n" +
 		"    \t(default 1s)\n" +

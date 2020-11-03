@@ -222,6 +222,7 @@ func populateNodeStruct(originalT reflect.Type, path string, v reflect.Value, t 
 
 		m.items.push(MapItem{
 			Name:  name,
+			Short: ft.Tag.Get("short"),
 			Help:  help,
 			Value: makeNode(fv),
 		})
@@ -447,6 +448,7 @@ type Map struct {
 // MapItem is the type of elements stored in a Map.
 type MapItem struct {
 	Name  string
+	Short string
 	Help  string
 	Value Node
 }

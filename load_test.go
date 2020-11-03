@@ -367,6 +367,50 @@ points:
 	}
 }
 
+func TestShorthand(t *testing.T) {
+	type config struct {
+		Long  string `conf:"long"`
+		Short string `conf:"short" short:"s"`
+	}
+
+	expectedArgs := []string{"A", "B", "C"}
+	expectedConfig := config{Long: "longval", Short: "shortval"}
+
+	t.Run("with long", func(t *testing.T) {
+		var cfg config
+		_, args, err := defaultLoader([]string{"test", "--long", "longval", "--short", "shortval", "A", "B", "C"}, nil).Load(&cfg)
+
+		if err != nil {
+			t.Error(err)
+		}
+
+		if !reflect.DeepEqual(args, expectedArgs) {
+			t.Error("bad args:", args)
+		}
+
+		if !reflect.DeepEqual(cfg, expectedConfig) {
+			t.Errorf("bad config: %#v", cfg)
+		}
+	})
+
+	t.Run("with short", func(t *testing.T) {
+		var cfg config
+		_, args, err := defaultLoader([]string{"test", "--long", "longval", "-s", "shortval", "A", "B", "C"}, nil).Load(&cfg)
+
+		if err != nil {
+			t.Error(err)
+		}
+
+		if !reflect.DeepEqual(args, expectedArgs) {
+			t.Error("bad args:", args)
+		}
+
+		if !reflect.DeepEqual(cfg, expectedConfig) {
+			t.Errorf("bad config: %#v", cfg)
+		}
+	})
+}
+
 func TestTemplateFunc(t *testing.T) {
 	const configFile = "/tmp/conf-json-test.yml"
 	ioutil.WriteFile(configFile, []byte(`---

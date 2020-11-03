@@ -131,7 +131,12 @@ func (ld Loader) fprintHelp(w io.Writer, cfg interface{}, col colors) {
 			t = "value"
 		}
 
-		fmt.Fprintf(w, "  %s", col.keys("--"+f.Name))
+		flagName := "--" + f.Name
+		if f.Shorthand != "" {
+			flagName = "-" + f.Shorthand + ", " + flagName
+		}
+
+		fmt.Fprintf(w, "  %s", col.keys(flagName))
 
 		switch {
 		case !boolean:
