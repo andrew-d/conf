@@ -1,0 +1,29 @@
+name: Build and test Go
+on: [push, pull_request]
+jobs:
+  build:
+    name: Build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        go-version: [1.14.x, 1.15.x]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          GOPROXY: "https://proxy.golang.org"
+        run: go build -v ./...
+
+      - name: Test
+        env:
+          GOPROXY: "https://proxy.golang.org"
+        run: go test -v ./...
