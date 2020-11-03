@@ -7,6 +7,7 @@ import (
 	"net/mail"
 	"net/url"
 	"os"
+	"path/filepath"
 	"reflect"
 	"testing"
 	"time"
@@ -296,7 +297,7 @@ func TestLoad(t *testing.T) {
 }
 
 func TestDefaultLoader(t *testing.T) {
-	const configFile = "/tmp/conf-test.yml"
+	configFile := filepath.Join(os.TempDir(), "conf-test.yml")
 	ioutil.WriteFile(configFile, []byte(`---
 points:
  - { 'x': 0, 'y': 0 }
@@ -412,7 +413,7 @@ func TestShorthand(t *testing.T) {
 }
 
 func TestTemplateFunc(t *testing.T) {
-	const configFile = "/tmp/conf-json-test.yml"
+	configFile := filepath.Join(os.TempDir(), "conf-json-test.yml")
 	ioutil.WriteFile(configFile, []byte(`---
 hello: {{ .NAME | json }}
 `), 0644)
